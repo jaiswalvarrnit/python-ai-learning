@@ -23,7 +23,7 @@
 # 3. Print the salary.
 # 4. Handle invalid input using try-except.
 
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, Field, ValidationError, field_validator
 import json
 
 class Employee(BaseModel):
@@ -132,3 +132,45 @@ except ValidationError as e:
 # - difficulty must only accept Beginner, Intermediate or Advanced.
 # - Print all course names using list comprehension.
 # - Reject invalid JSON data.
+
+class course(BaseModel):
+    name: str
+    duration_hours: int = Field(gt=0)
+    difficulty: str
+
+    @classmethod
+    @field_validator("difficulty")
+    def validate_difficulty(cls, value):
+        if value not in ["Beginner", "Intermediate", "Advanced"]:
+            raise ValueError("Difficulty must be Beginner, Intermediate, or Advanced")
+        return value
+
+class response(BaseModel):
+    student: str
+    courses: list[course]
+
+llm_json = """
+{
+  "student": "Varrnit",
+  "courses": [
+    {
+      "name": "Python for AI",
+      "duration_hours": 20,
+      "difficulty": "Beginner"
+    },
+    {
+      "name": "Machine Learning",
+      "duration_hours": 40,
+      "difficulty": "Intermediate"
+    }
+  ]
+}"""
+
+try:
+    llm_response = response.model_validate_json(llm_json)
+    print([course.name for course in llm_response.courses])
+except ValidationError as e:
+    print("Invalid LLM response:")
+    for error in e.errors():
+        print(f" - {error['msg']}")
+
