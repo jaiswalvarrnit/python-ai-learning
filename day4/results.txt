@@ -1,0 +1,77 @@
+(.venv-google) PS C:\Varrnit\Python\python-ai-learning\day4> python test_tickets.py
+
+Ticket 1: PASS
+Text: I was charged twice for my order.
+Expected: Billing
+Predicted: Billing
+Priority: High
+Summary: Customer was charged twice for their order.
+
+Ticket 2: PASS
+Text: Please refund my annual subscription.
+Expected: Billing
+Predicted: Billing
+Priority: Medium
+Summary: Customer requests a refund for their annual subscription.
+
+Ticket 3: PASS
+Text: My invoice has the wrong amount.
+Expected: Billing
+Predicted: Billing
+Priority: Medium
+Summary: Customer reports an incorrect amount on their invoice.
+
+Ticket 4: PASS
+Text: My payment failed but money was deducted.
+Expected: Billing
+Predicted: Billing
+Priority: High
+Summary: Customer's payment failed but funds were deducted from their account.
+
+Ticket 5: PASS
+Text: The app crashes whenever I open settings.
+Expected: Technical
+Predicted: Technical
+Priority: High
+Summary: The app crashes whenever the user attempts to open settings.
+
+Ticket 6: PASS
+Text: The website returns a 500 error.
+Expected: Technical
+Predicted: Technical
+Priority: Urgent
+Summary: The website is returning a 500 error.
+
+Ticket 7: PASS
+Text: I cannot upload my PDF file.
+Expected: Technical
+Predicted: Technical
+Priority: Medium
+Summary: Customer is unable to upload a PDF file.
+
+Ticket 8: PASS
+Text: The latest update broke dark mode.
+Expected: Technical
+Predicted: Technical
+Priority: Medium
+Summary: Dark mode is broken after the latest update.
+
+Ticket 9: PASS
+Text: I forgot my password and cannot log in.
+Expected: Account
+Predicted: Account
+Priority: Medium
+Summary: Customer forgot password and cannot log in.
+
+Ticket 10: PASS
+Text: Please change the email on my account.
+Expected: Account
+Predicted: Account
+Priority: Medium
+Summary: Customer requests to change the email address associated with their account.
+
+Rate limit hit on ticket 11. Waiting 35 seconds...
+
+Rate limit hit on ticket 11. Waiting 70 seconds...
+
+Rate limit hit on ticket 11. Waiting 105 seconds...
