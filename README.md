@@ -1,6 +1,6 @@
 # Python AI Learning
 
-This repository contains the practical work completed from Day 1 through Day 4 while learning Python backend and AI application development.
+This repository contains the practical work completed from Day 1 through Day 5 while learning Python backend and AI application development.
 
 ## Prerequisites
 
@@ -193,6 +193,62 @@ This gives both structured generation from Gemini and runtime validation with Py
 
 `day4/test_tickets.py` tests the classifier with multiple billing, technical, and account tickets. `day4/results.txt` contains recorded test output.
 
+### Day 5: Gemini Function Calling and Tool Use
+
+`day5/main.py` demonstrates how to connect Gemini to local Python functions.
+
+The application exposes two tools:
+
+- `calculator` performs addition, subtraction, multiplication, and division.
+- `mock_lookup` retrieves customer information from a local mock database.
+
+The tool-calling flow is:
+
+1. Send the user's question and tool declarations to Gemini.
+2. Let Gemini decide whether a tool is needed.
+3. Read the requested function name and arguments from `response.function_calls`.
+4. Find and execute the corresponding Python function.
+5. Send the function result back to Gemini.
+6. Receive and print Gemini's final natural-language answer.
+
+The `available_functions` dictionary maps model-requested tool names to actual Python functions:
+
+```python
+available_functions = {
+    "calculator": calculator,
+    "mock_lookup": mock_lookup,
+}
+```
+
+This pattern keeps the model responsible for choosing a tool while Python remains responsible for executing the tool and controlling the data.
+
+Example questions:
+
+```text
+What is 25 multiplied by 4?
+Look up customer C101.
+What is the status and plan of customer C103?
+```
+
+Run Day 5 with:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day5
+.\.venv-google\Scripts\Activate.ps1
+python .\main.py
+```
+
+Every tool-enabled question can require more than one Gemini request: one request to select the tool and another request to generate the final answer after the tool result is returned.
+
+#### Day 5 Quota Note
+
+Gemini free-tier projects have request limits. A `429 RESOURCE_EXHAUSTED` error means the configured project has exceeded its quota, not that the local Python tool function necessarily failed. Check the usage and reset time at:
+
+- https://ai.dev/rate-limit
+- https://aistudio.google.com/docs/rate-limits
+
+Retrying repeatedly does not resolve a daily quota limit. Wait for the quota reset or use a project with available quota.
+
 ## Project Structure
 
 ```text
@@ -221,6 +277,8 @@ python-ai-learning/
 │   ├── ticket_classifier.py
 │   ├── test_tickets.py
 │   └── results.txt
+├── day5/
+│   └── main.py
 └── README.md
 ```
 
@@ -256,7 +314,7 @@ cd ..\assisgnment_day2
 python -m pip install -r requirements.txt
 ```
 
-### Day 3 and Day 4
+### Day 3, Day 4, and Day 5
 
 ```powershell
 python -m pip install google-genai python-dotenv pydantic
@@ -290,6 +348,14 @@ For the Day 4 classifier:
 cd C:\Varrnit\Python\python-ai-learning\day4
 .\.venv-google\Scripts\Activate.ps1
 python .\ticket_classifier.py
+```
+
+For the Day 5 tool-calling agent:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day5
+.\.venv-google\Scripts\Activate.ps1
+python .\main.py
 ```
 
 ## Running the Python Examples
@@ -501,3 +567,4 @@ Then open http://localhost:8001/docs.
 7. Gemini can generate normal, streamed, and structured responses.
 8. A Pydantic JSON Schema can constrain an AI response.
 9. Pydantic validation should still verify the response received from an AI model.
+10. Gemini function calling lets an AI model request controlled local Python tools.
