@@ -249,6 +249,37 @@ Gemini free-tier projects have request limits. A `429 RESOURCE_EXHAUSTED` error 
 
 Retrying repeatedly does not resolve a daily quota limit. Wait for the quota reset or use a project with available quota.
 
+### Day 6: Multi-Tool Agent and API Rate Limiting
+
+`day6/agent.py` builds on function calling with:
+
+- Calculator operations: add, subtract, multiply, divide, modulo, power, and floor division.
+- Customer lookup against a larger mock customer database.
+- Text analysis for words, unique words, lines, digits, vowels, punctuation, and character counts.
+- A `final_answer` tool that ends the agent loop.
+- Scratchpad and file logging for agent steps and tool results.
+- A maximum step limit to prevent unbounded agent loops.
+- A rolling process-local Gemini request limiter.
+
+The limiter defaults to four requests per minute and can be configured before starting the application:
+
+```powershell
+$env:GEMINI_REQUESTS_PER_MINUTE = "3"
+python .\main.py
+```
+
+The limiter controls request frequency but does not increase Gemini's daily quota. A `429 RESOURCE_EXHAUSTED` response still requires waiting for the provider quota reset or using a project with available quota.
+
+Run Day 6 with:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day6
+python -m pip install -r requirements.txt
+python .\main.py
+```
+
+`day6/agent_test.py` exercises arithmetic, customer comparisons, multi-tool tasks, text analysis, unknown customers, invalid arithmetic, unsupported requests, and failure handling.
+
 ## Project Structure
 
 ```text
@@ -279,6 +310,12 @@ python-ai-learning/
 │   └── results.txt
 ├── day5/
 │   └── main.py
+├── day6/
+│   ├── agent.py
+│   ├── agent_test.py
+│   ├── main.py
+│   ├── requirements.txt
+│   └── tools.py
 └── README.md
 ```
 
@@ -314,7 +351,7 @@ cd ..\assisgnment_day2
 python -m pip install -r requirements.txt
 ```
 
-### Day 3, Day 4, and Day 5
+### Day 3, Day 4, Day 5, and Day 6
 
 ```powershell
 python -m pip install google-genai python-dotenv pydantic
@@ -354,6 +391,14 @@ For the Day 5 tool-calling agent:
 
 ```powershell
 cd C:\Varrnit\Python\python-ai-learning\day5
+.\.venv-google\Scripts\Activate.ps1
+python .\main.py
+```
+
+For the Day 6 multi-tool agent:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day6
 .\.venv-google\Scripts\Activate.ps1
 python .\main.py
 ```
