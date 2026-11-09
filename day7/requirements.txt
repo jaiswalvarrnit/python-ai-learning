@@ -1,0 +1,6 @@
+google-genai
+python-dotenv
+fastapi
+uvicorn[standard]
+httpx
+redis>=5,<7

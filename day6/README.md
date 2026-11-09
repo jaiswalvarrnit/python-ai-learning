@@ -20,6 +20,7 @@ The agent can:
 day6/
 ├── agent.py
 ├── agent_test.py
+├── app.py
 ├── main.py
 ├── requirements.txt
 └── tools.py
@@ -28,6 +29,7 @@ day6/
 - [`agent.py`](./agent.py) contains the agent loop and Gemini tool declarations.
 - [`tools.py`](./tools.py) contains the real Python functions.
 - [`main.py`](./main.py) provides the interactive command-line interface.
+- [`app.py`](./app.py) provides the browser-based Streamlit interface.
 - [`agent_test.py`](./agent_test.py) runs realistic test tasks.
 - [`requirements.txt`](./requirements.txt) lists external packages.
 
@@ -39,6 +41,26 @@ From PowerShell:
 cd C:\Varrnit\Python\python-ai-learning\day6
 python -m pip install -r requirements.txt
 ```
+
+## Browser UI
+
+The Streamlit app lets you submit tasks, see the final answer, check the status and step count, and expand the agent scratchpad.
+
+Start it with:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day6
+python -m pip install -r requirements.txt
+python -m streamlit run .\app.py
+```
+
+Streamlit opens the app in your browser, usually at:
+
+```text
+http://localhost:8501
+```
+
+Stop the UI with `Ctrl+C` in the terminal.
 
 Create a `.env` file in the Day 6 directory:
 
