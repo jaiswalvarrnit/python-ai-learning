@@ -1,6 +1,6 @@
 # Python AI Learning
 
-This repository contains the practical work completed from Day 1 through Day 5 while learning Python backend and AI application development.
+This repository contains practical work completed while learning Python backend and AI application development, from Python fundamentals through document chunking for retrieval-augmented generation (RAG).
 
 ## Prerequisites
 
@@ -280,6 +280,34 @@ python .\main.py
 
 `day6/agent_test.py` exercises arithmetic, customer comparisons, multi-tool tasks, text analysis, unknown customers, invalid arithmetic, unsupported requests, and failure handling.
 
+### Day 8: PDF Text Extraction and Chunking
+
+`day8/main.py` extracts text from the sample PDFs in `day8/day8_sample_pdfs` using `pypdf`, then compares three chunking strategies from `day8/chunking.py`:
+
+- **Fixed-size:** slices text by character count, with configurable overlap.
+- **Recursive:** tries paragraph, line, sentence-like, and word boundaries before falling back to character slices.
+- **Heading-based:** splits documents at numbered headings matching the pattern used by the sample PDFs.
+
+For each PDF and strategy, the program prints the number of chunks, average chunk size in characters, and up to two sample chunks (the first 200 characters of each sample). The average is computed over the complete chunks returned by that strategy.
+
+Run it with the repository's virtual environment:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning
+.\.venv\Scripts\Activate.ps1
+cd .\day8
+python -m pip install -r requirements.txt
+python .\main.py
+```
+
+Or, if you use another virtual environment, activate it first and then run:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day8
+python -m pip install -r requirements.txt
+python .\main.py
+```
+
 ## Project Structure
 
 ```text
@@ -316,6 +344,12 @@ python-ai-learning/
 │   ├── main.py
 │   ├── requirements.txt
 │   └── tools.py
+├── day8/
+│   ├── chunking.py
+│   ├── main.py
+│   ├── requirements.txt
+│   └── day8_sample_pdfs/
+│       └── (sample PDF documents)
 └── README.md
 ```
 
