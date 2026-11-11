@@ -308,6 +308,109 @@ python -m pip install -r requirements.txt
 python .\main.py
 ```
 
+### Day 9: PDF Retrieval with Gemini Embeddings and PostgreSQL
+
+Day 9 builds a small retrieval pipeline over PDF documents. It stores document
+chunks and their Gemini embeddings in PostgreSQL with the `pgvector` extension,
+then finds chunks nearest to a question using cosine distance.
+
+#### How the files fit together
+
+- `day9/embeddings.py` calls Gemini's `gemini-embedding-001` model. It creates
+  768-dimensional vectors and uses `RETRIEVAL_DOCUMENT` for stored document
+  text and `RETRIEVAL_QUERY` for user questions.
+- `day9/db.py` opens a PostgreSQL connection using `DATABASE_URL` and registers
+  pgvector's Psycopg adapter so vector values can be read and written.
+- `day9/ingest.py` reads PDFs from `day9/day8_sample_pdfs`, extracts text page
+  by page, and splits each page into 500-character chunks with 50 characters
+  of overlap. It finds the nearest preceding numbered heading as the section,
+  generates an embedding for each chunk, and inserts the chunk, metadata, and
+  source details into `document_chunks`. Existing identical source/page/chunk
+  rows are skipped.
+- `day9/search.py` embeds a question, wraps the result as a pgvector `Vector`,
+  and orders stored chunks by PostgreSQL's cosine-distance operator (`<=>`).
+  It prints the three nearest results by default, including their source,
+  page, section, distance, similarity, and text.
+- `day9/test_db.py` checks that the database connection works by printing the
+  current database name; it does not create or validate the vector table.
+- `day9/docker-compose.yml` runs a local PostgreSQL 16 database with pgvector.
+
+The end-to-end flow is:
+
+1. Extract PDF text and split it into overlapping chunks.
+2. Ask Gemini to turn each chunk into a numeric embedding.
+3. Store the text, embedding, and source metadata in PostgreSQL.
+4. Turn a question into an embedding using the query task type.
+5. Rank stored embeddings by cosine distance and print the closest chunks.
+
+#### Configure the database and Gemini
+
+From PowerShell, start the local database:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day9
+docker compose up -d
+```
+
+Create `day9/.env` with your own Gemini API key and local database URL:
+
+```dotenv
+GEMINI_API_KEY=replace_with_your_key
+DATABASE_URL=postgresql://raguser:ragpassword@localhost:5432/ragdb
+```
+
+These database credentials are the development defaults in `docker-compose.yml`;
+do not use them for a publicly accessible or production database. Keep `.env`
+private and never commit API keys.
+
+The compose file starts PostgreSQL but does not create the application table.
+Connect to the database with a PostgreSQL client and run this setup once:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE IF NOT EXISTS document_chunks (
+    id BIGSERIAL PRIMARY KEY,
+    content TEXT NOT NULL,
+    embedding VECTOR(768) NOT NULL,
+    metadata JSONB NOT NULL DEFAULT '{}'::jsonb,
+    source TEXT NOT NULL,
+    page INTEGER NOT NULL,
+    section TEXT,
+    UNIQUE (source, page, content)
+);
+```
+
+The vector dimension must match `DIMENSIONS` in `day9/embeddings.py`. The
+unique constraint supports the conflict handling used by the ingestion script.
+
+#### Install and run
+
+The existing Day 3 Google environment can be reused. From the Day 9 directory:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day9
+..\day3\.venv-google\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+Verify database connectivity, then ingest the sample PDFs:
+
+```powershell
+python .\test_db.py
+python .\ingest.py
+```
+
+Search the ingested chunks:
+
+```powershell
+python .\search.py
+```
+
+Edit the `question` in `search.py` to ask a different question. Each distinct
+chunk requires a Gemini embedding request during ingestion; rerunning ingestion
+skips chunks already present under the same source, page, and content.
+
 ## Project Structure
 
 ```text
@@ -348,6 +451,16 @@ python-ai-learning/
 │   ├── chunking.py
 │   ├── main.py
 │   ├── requirements.txt
+│   └── day8_sample_pdfs/
+│       └── (sample PDF documents)
+├── day9/
+│   ├── db.py
+│   ├── docker-compose.yml
+│   ├── embeddings.py
+│   ├── ingest.py
+│   ├── requirements.txt
+│   ├── search.py
+│   ├── test_db.py
 │   └── day8_sample_pdfs/
 │       └── (sample PDF documents)
 └── README.md
@@ -392,6 +505,13 @@ python -m pip install google-genai python-dotenv pydantic
 ```
 
 The `google-genai` package provides the Gemini client, and `python-dotenv` loads values from `.env`.
+
+### Day 9
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day9
+python -m pip install -r requirements.txt
+```
 
 ## Gemini Environment Variables
 
@@ -647,3 +767,4 @@ Then open http://localhost:8001/docs.
 8. A Pydantic JSON Schema can constrain an AI response.
 9. Pydantic validation should still verify the response received from an AI model.
 10. Gemini function calling lets an AI model request controlled local Python tools.
+11. Embeddings and vector search can retrieve relevant PDF chunks for a question.
