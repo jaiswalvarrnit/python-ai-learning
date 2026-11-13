@@ -384,6 +384,58 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 The vector dimension must match `DIMENSIONS` in `day9/embeddings.py`. The
 unique constraint supports the conflict handling used by the ingestion script.
 
+#### Run SQL directly in the PostgreSQL terminal
+
+Start the Day 9 database, then open an interactive `psql` session from
+PowerShell:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day9
+docker compose up -d
+docker compose exec postgres psql -U raguser -d ragdb
+```
+
+When the prompt changes to `ragdb=#`, you are connected to the `ragdb`
+database. You can enter SQL directly; finish each statement with a semicolon.
+For example, to add a generated full-text-search column to the existing
+`document_chunks` table:
+
+```sql
+ALTER TABLE document_chunks
+ADD COLUMN IF NOT EXISTS content_tsv TSVECTOR
+GENERATED ALWAYS AS (
+    to_tsvector('english', coalesce(content, ''))
+) STORED;
+```
+
+Verify the table and column from the same `psql` session:
+
+```sql
+SELECT current_database();
+SELECT to_regclass('public.document_chunks');
+
+SELECT column_name
+FROM information_schema.columns
+WHERE table_schema = 'public'
+  AND table_name = 'document_chunks'
+  AND column_name = 'content_tsv';
+```
+
+The first query should return `ragdb`, the second should return
+`document_chunks`, and the last should list `content_tsv` after the `ALTER
+TABLE` succeeds. Exit `psql` and return to PowerShell with:
+
+```text
+\q
+```
+
+The Day 11 Compose setup runs a separate PostgreSQL database and data volume.
+Its host port is `5433`, but `docker compose exec postgres ...` connects inside
+the Day 11 container. A table created in Day 9 is not automatically present in
+Day 11. Run database changes in the Compose project that owns the table; create
+and populate `document_chunks` in Day 11 first if you intend to alter that
+database instead.
+
 #### Install and run
 
 The existing Day 3 Google environment can be reused. From the Day 9 directory:
@@ -410,6 +462,110 @@ python .\search.py
 Edit the `question` in `search.py` to ask a different question. Each distinct
 chunk requires a Gemini embedding request during ingestion; rerunning ingestion
 skips chunks already present under the same source, page, and content.
+
+### Day 10: PDF Question Answering with RAG and Citations
+
+Day 10 builds on Day 9's PDF retrieval pipeline to generate answers grounded in
+retrieved document passages. It embeds a question, searches PostgreSQL with
+pgvector, sends the closest passages to Gemini as context, and validates that
+the answer cites only chunks that were actually retrieved.
+
+#### How the files fit together
+
+- `day10/main.py` runs the command-line question-and-answer loop and prints the
+  answer and citation metadata.
+- `day10/rag.py` embeds a question, retrieves the nearest chunks, builds the
+  prompt, calls Gemini, validates citation IDs, and prepares the response.
+  The query embedding is wrapped in pgvector's `Vector` type before it is
+  passed to PostgreSQL's cosine-distance operator (`<=>`).
+- `day10/embeddings.py` creates 768-dimensional Gemini embeddings. Stored
+  document chunks use `RETRIEVAL_DOCUMENT`; user questions use
+  `RETRIEVAL_QUERY`.
+- `day10/db.py` connects to PostgreSQL using `DATABASE_URL` and registers
+  pgvector's Psycopg adapter.
+- `day10/test_citations.py` checks valid citations, citations to unknown chunk
+  IDs, and answers with no citation.
+- `day10/requirements.txt` lists the Python dependencies.
+
+Day 10 does not include a PDF ingestion script or a Docker Compose file. Use
+Day 9's database setup and ingestion process to create and populate
+`document_chunks` before asking questions. Both days must connect to the same
+database, and its vector column must be `VECTOR(768)` to match the embedding
+dimension.
+
+#### Configure and run
+
+Start and initialize PostgreSQL, then ingest the PDFs as described in the Day 9
+instructions above. Create `day10/.env` with the same database URL used by Day
+9 and your own Gemini API key:
+
+```dotenv
+GEMINI_API_KEY=replace_with_your_key
+DATABASE_URL=postgresql://raguser:ragpassword@localhost:5432/ragdb
+```
+
+`GEMINI_MODEL` optionally selects the answer-generation model; it defaults to
+`gemini-2.5-flash`. `GEMINI_EMBEDDING_MODEL` optionally selects the embedding
+model; it defaults to `gemini-embedding-001`. Keep `.env` private and never
+commit API keys.
+
+From PowerShell:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day10
+python -m pip install -r requirements.txt
+python .\test_citations.py
+python .\main.py
+```
+
+Ask a question at the prompt and type `exit` to quit. The app retrieves five
+chunks by default; change `top_k` in `day10/main.py` to experiment with the
+amount of context sent to Gemini.
+
+Citation validation confirms that an answer has at least one citation and
+that every cited chunk ID came from retrieval. It does not verify that a cited
+chunk actually supports the answer's claims.
+
+### Day 11: Compare Vector and Hybrid Retrieval
+
+Day 11 compares vector-only retrieval with hybrid retrieval, which combines
+vector similarity and PostgreSQL full-text search using reciprocal rank fusion.
+It evaluates retrieval against manually reviewed chunk IDs; it does not call
+the answer-generation model.
+
+- `day11/search.py` provides vector search, keyword search, and hybrid search.
+- `day11/evaluate.py` runs the ten-question test set, reports the top five
+  chunk IDs and Recall@5 for vector and hybrid search, and averages recall over
+  questions with relevant chunks. Questions with no relevant chunk are shown
+  but excluded from the recall average.
+- `day11/ground_truth.json` contains the manually reviewed relevant chunk IDs.
+- `day11/db.py` and `day11/embeddings.py` provide the PostgreSQL and Gemini
+  embedding helpers used by search.
+- `day11/docker-compose.yml` runs a separate database on host port `5433`.
+
+The current ground truth was checked against the 15 chunks in the populated
+Day 9 database. Therefore, run the evaluator against Day 9's database unless
+you have also ingested the same documents into Day 11. The Day 11 database
+volume is separate and currently has no `document_chunks` table. Day 9 must
+have the `content_tsv` generated column for keyword and hybrid search.
+
+From PowerShell, install the Day 11 dependencies and run the evaluator against
+the existing Day 9 database. The database URL override applies only to this
+PowerShell session; the Day 11 `.env` still supplies the Gemini API key:
+
+```powershell
+cd C:\Varrnit\Python\python-ai-learning\day11
+python -m pip install -r requirements.txt
+$env:DATABASE_URL = "postgresql://raguser:ragpassword@localhost:5432/ragdb"
+python .\evaluate.py
+Remove-Item Env:DATABASE_URL
+```
+
+The URL uses the local development credentials in Day 9's Compose file; do not
+use those credentials for a public or production database. Evaluation makes
+one Gemini embedding request per question. If you ingest the corpus again or
+use a different database, chunk IDs can change; inspect the new chunks and
+update `ground_truth.json` before interpreting the metrics.
 
 ## Project Structure
 
@@ -463,6 +619,22 @@ python-ai-learning/
 │   ├── test_db.py
 │   └── day8_sample_pdfs/
 │       └── (sample PDF documents)
+├── day10/
+│   ├── db.py
+│   ├── embeddings.py
+│   ├── main.py
+│   ├── rag.py
+│   ├── requirements.txt
+│   └── test_citations.py
+├── day11/
+│   ├── db.py
+│   ├── docker-compose.yml
+│   ├── embeddings.py
+│   ├── evaluate.py
+│   ├── ground_truth.json
+│   ├── rag.py
+│   ├── requirements.txt
+│   └── search.py
 └── README.md
 ```
 

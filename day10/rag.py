@@ -180,11 +180,79 @@ def validate_citations(
     print("Citation validation successful!")
 
 
-def answer_question(question: str, top_k: int = 5) -> dict:
+# def answer_question(question: str, top_k: int = 5) -> dict:
 
-    print("\n[1] Retrieving relevant chunks...")
+#     print("\n[1] Retrieving relevant chunks...")
 
-    chunks = retrieve_chunks(question, top_k)
+#     chunks = retrieve_chunks(question, top_k)
+
+#     if not chunks:
+#         return {
+#             "answer": "I don't have enough information in the provided documents.",
+#             "citations": [],
+#             "retrieved_chunks": []
+#         }
+
+#     print(f"Retrieved {len(chunks)} chunks.")
+
+#     print("\n[2] Building prompt...")
+
+#     prompt = build_prompt(question, chunks)
+
+#     print("\n[3] Generating answer with Gemini...")
+
+#     answer = generate_answer(prompt)
+
+#     print("\n[4] Validating citations...")
+
+#     validate_citations(answer, chunks)
+
+#     print("\n[5] Preparing response...")
+
+#     citations = []
+
+#     # Build citation metadata from the retrieved chunks.
+#     cited_ids = {
+#         int(value)
+#         for value in re.findall(
+#             r"\[chunk_id:\s*(\d+)\]",
+#             answer
+#         )
+#     }
+
+#     for chunk in chunks:
+
+#         if chunk["id"] in cited_ids:
+
+#             citations.append({
+#                 "chunk_id": chunk["id"],
+#                 "source": chunk["source"],
+#                 "page": chunk["page"],
+#                 "section": chunk["section"]
+#             })
+
+#     return {
+#         "answer": answer,
+#         "citations": citations,
+#         "retrieved_chunks": chunks
+#     }
+
+
+def answer_question(
+    question: str,
+    search_mode: str = "hybrid",
+    top_k: int = 5
+):
+    if search_mode == "vector":
+        chunks = vector_search(question, top_k=top_k)
+
+    elif search_mode == "hybrid":
+        chunks = hybrid_search(question, top_k=top_k)
+
+    else:
+        raise ValueError(
+            "search_mode must be 'vector' or 'hybrid'"
+        )
 
     if not chunks:
         return {
@@ -193,25 +261,11 @@ def answer_question(question: str, top_k: int = 5) -> dict:
             "retrieved_chunks": []
         }
 
-    print(f"Retrieved {len(chunks)} chunks.")
-
-    print("\n[2] Building prompt...")
-
     prompt = build_prompt(question, chunks)
-
-    print("\n[3] Generating answer with Gemini...")
-
     answer = generate_answer(prompt)
-
-    print("\n[4] Validating citations...")
 
     validate_citations(answer, chunks)
 
-    print("\n[5] Preparing response...")
-
-    citations = []
-
-    # Build citation metadata from the retrieved chunks.
     cited_ids = {
         int(value)
         for value in re.findall(
@@ -220,16 +274,16 @@ def answer_question(question: str, top_k: int = 5) -> dict:
         )
     }
 
-    for chunk in chunks:
-
-        if chunk["id"] in cited_ids:
-
-            citations.append({
-                "chunk_id": chunk["id"],
-                "source": chunk["source"],
-                "page": chunk["page"],
-                "section": chunk["section"]
-            })
+    citations = [
+        {
+            "chunk_id": chunk["id"],
+            "source": chunk["source"],
+            "page": chunk["page"],
+            "section": chunk["section"]
+        }
+        for chunk in chunks
+        if chunk["id"] in cited_ids
+    ]
 
     return {
         "answer": answer,
