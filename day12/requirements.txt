@@ -1,0 +1,7 @@
+pypdf
+google-genai
+python-dotenv
+pypdf
+psycopg[binary]
+pgvector
+sentence-transformers

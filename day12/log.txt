@@ -1,0 +1,575 @@
+(.venv-google) PS C:\Varrnit\Python\python-ai-learning\day12> python compare.py
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 105/105 [00:00<00:00, 2624.85it/s]
+
+================================================================================
+QUESTION: How many days do I have to return a product?
+Gemini query rewriting returned HTTP 503; continuing with the original question.
+
+Original question: How many days do I have to return a product?
+Search query: How many days do I have to return a product?
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+1 Customer Refund Policy
+Day 8 RAG practice document
+1. Overview
+This policy explains when customers can return products a
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+7 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+
+B. HYBRID
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+1 Customer Refund Policy
+Day 8 RAG practice document
+1. Overview
+This policy explains when customers can return products a
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+7 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+
+C. QUERY REWRITE + RERANK
+1 6.3862 Customer Refund Policy
+Day 8 RAG practice document
+1. Overview
+This policy explains when customers can return products a
+2 4.8061 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+3 -0.9314 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+9 -3.8147 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+15 -6.6709 st-incident review within two business days. Document root causes, contributing
+factors, customer impact, and action ite
+
+================================================================================
+QUESTION: When do API tokens expire?
+Gemini query rewriting returned HTTP 503; continuing with the original question.
+
+Original question: When do API tokens expire?
+Search query: When do API tokens expire?
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+6 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+5 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+B. HYBRID
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+6 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+5 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+C. QUERY REWRITE + RERANK
+4 7.1431 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+6 -9.1867 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+9 -10.3336 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+3 -10.6718 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+1 -10.7511 Customer Refund Policy
+Day 8 RAG practice document
+1. Overview
+This policy explains when customers can return products a
+
+================================================================================
+QUESTION: Find the exact token expiry value in seconds.
+Gemini query rewriting returned HTTP 503; continuing with the original question.
+
+Original question: Find the exact token expiry value in seconds.
+Search query: Find the exact token expiry value in seconds.
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+6 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+5 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+7 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+B. HYBRID
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+6 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+5 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+7 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+C. QUERY REWRITE + RERANK
+4 -4.537 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+6 -10.7733 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+5 -11.138 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+3 -11.1617 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+9 -11.3067 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+
+================================================================================
+QUESTION: How much annual paid leave do employees receive?
+Gemini query rewriting returned HTTP 503; continuing with the original question.
+
+Original question: How much annual paid leave do employees receive?
+Search query: How much annual paid leave do employees receive?
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+7 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+8 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+9 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+B. HYBRID
+7 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+8 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+9 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+C. QUERY REWRITE + RERANK
+7 6.1715 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+8 -10.0244 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+9 -10.9842 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+11 -11.1419 arization, more data, and simpler models can help.
+3. Train and Test Split
+A dataset is commonly divided into training, 
+13 -11.1444 Incident Response Runbook
+Day 8 RAG practice document
+1. Severity Levels
+Severity 1 incidents cause a major customer-fac
+
+================================================================================
+QUESTION: What is overfitting?
+Gemini query rewriting returned HTTP 503; continuing with the original question.
+
+Original question: What is overfitting?
+Search query: What is overfitting?
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+11 arization, more data, and simpler models can help.
+3. Train and Test Split
+A dataset is commonly divided into training, 
+10 Machine Learning Notes
+Day 8 RAG practice document
+1. Supervised Learning
+Supervised learning uses labelled examples. Cl
+12 rieve text that is similar in meaning even when it uses
+different words.
+5. Evaluation
+Accuracy is the proportion of cor
+14 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+
+B. HYBRID
+10 Machine Learning Notes
+Day 8 RAG practice document
+1. Supervised Learning
+Supervised learning uses labelled examples. Cl
+11 arization, more data, and simpler models can help.
+3. Train and Test Split
+A dataset is commonly divided into training, 
+12 rieve text that is similar in meaning even when it uses
+different words.
+5. Evaluation
+Accuracy is the proportion of cor
+14 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+
+C. QUERY REWRITE + RERANK
+10 2.9581 Machine Learning Notes
+Day 8 RAG practice document
+1. Supervised Learning
+Supervised learning uses labelled examples. Cl
+12 -11.0239 rieve text that is similar in meaning even when it uses
+different words.
+5. Evaluation
+Accuracy is the proportion of cor
+3 -11.1201 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+11 -11.2175 arization, more data, and simpler models can help.
+3. Train and Test Split
+A dataset is commonly divided into training, 
+14 -11.2507 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+
+================================================================================
+QUESTION: What should an engineer do after a major production outage?
+Gemini query rewriting returned HTTP 503; continuing with the original question.
+
+Original question: What should an engineer do after a major production outage?
+Search query: What should an engineer do after a major production outage?
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+14 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+15 st-incident review within two business days. Document root causes, contributing
+factors, customer impact, and action ite
+13 Incident Response Runbook
+Day 8 RAG practice document
+1. Severity Levels
+Severity 1 incidents cause a major customer-fac
+6 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+5 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+
+B. HYBRID
+14 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+15 st-incident review within two business days. Document root causes, contributing
+factors, customer impact, and action ite
+13 Incident Response Runbook
+Day 8 RAG practice document
+1. Severity Levels
+Severity 1 incidents cause a major customer-fac
+6 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+5 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+
+C. QUERY REWRITE + RERANK
+13 -5.9066 Incident Response Runbook
+Day 8 RAG practice document
+1. Severity Levels
+Severity 1 incidents cause a major customer-fac
+2 -10.8943 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+3 -11.0191 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+14 -11.0985 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+8 -11.2961 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+
+================================================================================
+QUESTION: What does the refund policy say about damaged products?
+
+Original question: What does the refund policy say about damaged products?
+Search query: Refund policy information regarding damaged, defective, or faulty products.
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+1 Customer Refund Policy
+Day 8 RAG practice document
+1. Overview
+This policy explains when customers can return products a
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+9 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+
+B. HYBRID
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+1 Customer Refund Policy
+Day 8 RAG practice document
+1. Overview
+This policy explains when customers can return products a
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+9 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+
+C. QUERY REWRITE + RERANK
+3 2.1681 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+1 0.4195 Customer Refund Policy
+Day 8 RAG practice document
+1. Overview
+This policy explains when customers can return products a
+2 -0.6124 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+14 -10.6853 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+13 -11.0687 Incident Response Runbook
+Day 8 RAG practice document
+1. Severity Levels
+Severity 1 incidents cause a major customer-fac
+
+================================================================================
+QUESTION: Which HTTP status code indicates an unauthorized request?
+Gemini query rewriting returned HTTP 503; continuing with the original question.
+
+Original question: Which HTTP status code indicates an unauthorized request?
+Search query: Which HTTP status code indicates an unauthorized request?
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+6 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+5 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+B. HYBRID
+6 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+4 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+5 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+3 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+C. QUERY REWRITE + RERANK
+5 -4.0634 l backoff.
+3. Retries
+Retry network timeouts and temporary server errors such as HTTP 502, 503, and 504. Do not repeated
+4 -5.4541 API Operations Guide
+Day 8 RAG practice document
+1. Authentication
+Every API request must include an Authorization heade
+6 -9.8197 endpoint, response status, latency, and retry count. Never log access tokens,
+passwords, or full payment card details.
+2 -10.9979 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+1 -11.1043 Customer Refund Policy
+Day 8 RAG practice document
+1. Overview
+This policy explains when customers can return products a
+
+================================================================================
+QUESTION: What is the procedure for escalating a critical incident?
+
+Original question: What is the procedure for escalating a critical incident?
+Search query: Procedure process steps guidelines for critical incident escalation major incident P1 severity 1 reporting
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+14 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+13 Incident Response Runbook
+Day 8 RAG practice document
+1. Severity Levels
+Severity 1 incidents cause a major customer-fac
+15 st-incident review within two business days. Document root causes, contributing
+factors, customer impact, and action ite
+8 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+9 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+
+B. HYBRID
+14 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+13 Incident Response Runbook
+Day 8 RAG practice document
+1. Severity Levels
+Severity 1 incidents cause a major customer-fac
+15 st-incident review within two business days. Document root causes, contributing
+factors, customer impact, and action ite
+8 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+9 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+
+C. QUERY REWRITE + RERANK
+13 -5.488 Incident Response Runbook
+Day 8 RAG practice document
+1. Severity Levels
+Severity 1 incidents cause a major customer-fac
+14 -10.5784 events.
+3. Investigation
+Check recent deployments, service health, error rates, dependency status, and relevant logs. Co
+15 -11.0415 st-incident review within two business days. Document root causes, contributing
+factors, customer impact, and action ite
+8 -11.2076 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+3 -11.3256 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+
+================================================================================
+QUESTION: What is the company's process for handling an employee resignation?
+
+Original question: What is the company's process for handling an employee resignation?
+Search query: Company process OR procedure OR guidelines OR steps for handling OR managing employee resignation OR voluntary termination OR exit process OR offboarding.
+Retrieved candidates: 15
+
+A. VECTOR-ONLY
+7 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+8 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+9 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+15 st-incident review within two business days. Document root causes, contributing
+factors, customer impact, and action ite
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+B. HYBRID
+7 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+8 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+9 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+15 st-incident review within two business days. Document root causes, contributing
+factors, customer impact, and action ite
+2 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+
+C. QUERY REWRITE + RERANK
+8 -9.7421 Employees may work remotely up to two days per week, subject to team requirements. Company devices
+must use approved sec
+9 -10.502 ized receipts. Claims should be submitted within 30 days. Expenses above
+the team approval threshold require written man
+7 -10.5726 Employee Handbook
+Day 8 RAG practice document
+1. Working Hours
+The normal working week is Monday through Friday. Teams m
+2 -11.1041 gn in to their account, open Orders, select the relevant order, and choose Request a
+Return. A prepaid shipping label wi
+3 -11.187 ceptions
+Damaged or incorrect products should be reported within 48 hours of delivery. In these cases, customers
+may be 
+(.venv-google) PS C:\Varrnit\Python\python-ai-learning\day12> 
